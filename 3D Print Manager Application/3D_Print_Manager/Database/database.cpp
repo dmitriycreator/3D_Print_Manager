@@ -83,6 +83,46 @@ void Database::connectToUsersDB()
     else qDebug() << "table 'users' exists";
 }
 
+//------------------------------Методы_ORDERS------------------------------//
+
+// Метод создания нового заказа в базе данных
+void Database::createNewOrder(const QString &ordername)
+{
+    query->clear();
+    query->prepare("SELECT MAX(e.id) AS 'number_of_orders' FROM orders AS 'e'");
+    query->exec();
+    if(!query->isActive())
+        qDebug() << "Database Error: " << query->lastError();
+    query->next();
+    QString id = QString::number(query->value(0).toInt() + 1); // id нового заказа
+    QString date = QDate::currentDate().toString(); // дата создания заказа
+
+    query->clear();
+
+    // Добавляем заказ в таблицу заказов
+    qDebug() << "Adding new order " <<
+    query->prepare("INSERT INTO orders(id, name, date) "
+                   "VALUES(:id, :name, :date)");
+    query->bindValue(":id", id);
+    query->bindValue(":name", ordername);
+    query->bindValue(":date", date);
+    query->exec();
+
+    // Создаем новую таблицу в базе данных
+    query->clear();
+    qDebug() << "Creating new order " << id << ", name " << ordername <<
+    query->exec(QString("CREATE TABLE '%1' ("
+                        " id INTEGER PRIMARY KEY NOT NULL, /* идентификатор */"
+                        " name TEXT,                       /* имя */"
+                        " amount INTEGER,                  /* количество */"
+                        " weight DOUBLE,                   /* вес */"
+                        " time DOUBLE,                     /* время */"
+                        " plastic TEXT,                    /* пластик */"
+                        " defective BOOL,                  /* брак */"
+                        " done BOOL                        /* сделана */"
+                        ");").arg(id));
+}
+
 //------------------------------Методы_USERS------------------------------//
 
 // Метод на добавление нового пользователя
@@ -98,12 +138,12 @@ void Database::addUser(const QList<QString> params)
     if(!query->isActive())
         qDebug() << "Database Error: " << query->lastError();
     query->next();
-    QString id = QString::number(query->value(0).toInt());
+    QString id = QString::number(query->value(0).toInt() + 1);
     QString hash_userpass = get_hash(params[1]);
 
     query->clear();
 
-    qDebug() << "Adding new User " <<
+    qDebug() << "Adding new user " <<
     query->prepare("INSERT INTO users(id, login, password, role) "
                    "VALUES(:id, :login, :password, :role)");
     query->bindValue(":id", id);
@@ -111,6 +151,15 @@ void Database::addUser(const QList<QString> params)
     query->bindValue(":password", hash_userpass);
     query->bindValue(":role", params[2]);
     query->exec();
+}
+
+// Метод удаления пользователя
+void Database::deleteUser(const QString &username)
+{
+    query->clear();
+
+    qDebug() << "deleting user " << username << " " <<
+    query->exec(QString("DELETE FROM users WHERE login = '%1';").arg(username));
 }
 
 // Метод поиска пользотвателя по логину

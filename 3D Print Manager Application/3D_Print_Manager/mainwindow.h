@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QFileDialog>
 #include "Auth_Form/authform.h"
 #include "Reg_Form/regform.h"
 #include "Database/database.h"
@@ -27,8 +28,15 @@ private slots:
     void registerFormShow(); // метод открытия окна регистрации
     void returnToAuthForm(); // метод возвращения к окну авторизации
 
+    void on_action_createDB_triggered();
+
+    void on_action_openDB_triggered();
+
 private:
     Ui::MainWindow *ui;
+
+    static const QString fileDialogFilterString; // варианты формата баз данных для диалога
+
     AuthForm ui_Auth; // окно авторизации
     RegForm ui_Reg; // окно регистрации
 

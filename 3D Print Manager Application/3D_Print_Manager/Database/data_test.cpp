@@ -1,6 +1,6 @@
 #include "database.h"
 
-void users_test()
+void data_test()
 {
     try {
         Database data;
@@ -10,12 +10,19 @@ void users_test()
         params.append("2002");
         params.append("manager");
         data.addUser(params);
+        data.addUser({"dima", "2002", "manager"});
+        data.addUser({"ilya", "2002", "manager"});
         qDebug() << "searchUser: " << data.searchUser("march");
         qDebug() << "checkLog: " << data.checkLogData("march", "2002");
-        QList<QString> check = data.getUserParams("march");
+        QList<QString> check = data.getUserParams("ilya");
         qDebug() << check;
-
+        data.deleteUser("dima");
+        data.connectToDatabase("C:/Users/User/Desktop/Data.db");
+        data.createNewOrder("test0");
+        data.createNewOrder("test1");
+        data.createNewOrder("test2");
     }  catch (const QSqlError &e) {
         qDebug() << e;
     }
+    return;
 }
