@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+const QString MainWindow::fileDialogFilterString = tr("SQLite Database Files (*.sqlite3 *.sqlite *.db *.db3 *.sl3 *.s3db *.sdb *.sqlite2 *.db2 *.sl2 *.s2db)");
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -125,3 +127,17 @@ void MainWindow::registerUser()
         QMessageBox::warning(this, "Ошибка", "Пароль не подтвержден!");
     }
 }
+
+void MainWindow::on_action_createDB_triggered()
+{
+    QString dbFileFullPath = QFileDialog::getSaveFileName(this, "Создать базу данных Sql", "", MainWindow::fileDialogFilterString);
+    data.connectToDatabase(dbFileFullPath);
+}
+
+
+void MainWindow::on_action_openDB_triggered()
+{
+    QString dbFileFullPath = QFileDialog::getOpenFileName(this, "Открыть базу данных Sql", "", MainWindow::fileDialogFilterString);
+    data.connectToDatabase(dbFileFullPath);
+}
+

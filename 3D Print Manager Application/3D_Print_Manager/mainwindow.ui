@@ -14,8 +14,47 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="action_createDB"/>
+    <addaction name="action_openDB"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Помощь</string>
+    </property>
+    <addaction name="action_Help"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_createDB">
+   <property name="text">
+    <string>Создать новую базу данных...</string>
+   </property>
+  </action>
+  <action name="action_openDB">
+   <property name="text">
+    <string>Открыть существующую базу данных...</string>
+   </property>
+  </action>
+  <action name="action_Help">
+   <property name="text">
+    <string>О программе...</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
