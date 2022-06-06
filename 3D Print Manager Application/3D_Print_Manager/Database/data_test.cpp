@@ -4,7 +4,7 @@ void data_test()
 {
     try {
         Database data;
-        data.connectToUsersDB();
+        data.connectToDatabase("C:/Users/User/Desktop/Data.db");
         QList<QString> params;
         params.append("march");
         params.append("2002");
@@ -17,7 +17,6 @@ void data_test()
         QList<QString> check = data.getUserParams("ilya");
         qDebug() << check;
         data.deleteUser("dima");
-        data.connectToDatabase("C:/Users/User/Desktop/Data.db");
         data.createNewOrder("test0");
         data.createNewOrder("test1");
         data.createNewOrder("test2");

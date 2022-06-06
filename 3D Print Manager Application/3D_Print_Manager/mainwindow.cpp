@@ -21,14 +21,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&ui_Reg,SIGNAL(back_button_clicked()),
             this, SLOT(returnToAuthForm()));
 
-    data.connectToUsersDB(); // подключение к базе пользователей
-
     ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
     qDebug() << "MainWindow destroyed";
+    delete manager;
     delete ui;
 }
 
@@ -71,17 +70,17 @@ void MainWindow::authoriseUser()
         QMessageBox::warning(this, "Ошибка", "Пароль или логин неверны");
         return;
     }
-    // Флаг успешной аавторизации
-    m_loginSuccesfull = true;
 
     // Получаем данные о пользователе
     QList<QString> params = data.getUserParams(m_username);
     role = params[2];
-    QString hi = "Добро пожаловать, '%1'";
+    QString hi = "Добро пожаловать, %1";
     QMessageBox::information(this, "Здравствуйте", hi.arg(m_username));
     ui_Auth.close();
     ui_Reg.close();
-    this->show();
+    initApp(dbFileFullPath);
+    // Флаг успешной авторизации
+    m_loginSuccesfull = true;
 }
 
 // Метод регистрации пользователя
@@ -120,6 +119,7 @@ void MainWindow::registerUser()
             data.addUser(params); // добавление пользователя в БД
             ui_Reg.hide(); // скрываем форму регистрации
             ui_Auth.show();
+            QMessageBox::information(this, "Новая учетная запись", "учетная запись создана!");
         }
     }
     else
@@ -130,14 +130,30 @@ void MainWindow::registerUser()
 
 void MainWindow::on_action_createDB_triggered()
 {
-    QString dbFileFullPath = QFileDialog::getSaveFileName(this, "Создать базу данных Sql", "", MainWindow::fileDialogFilterString);
-    data.connectToDatabase(dbFileFullPath);
+    dbFileFullPath = QFileDialog::getSaveFileName(this, "Создать базу данных Sql", "", MainWindow::fileDialogFilterString);
+    if(!dbFileFullPath.isEmpty())
+        data.connectToDatabase(dbFileFullPath);
+    else return;
+    this->hide();
+    ui_Auth.show();
 }
 
 
 void MainWindow::on_action_openDB_triggered()
 {
-    QString dbFileFullPath = QFileDialog::getOpenFileName(this, "Открыть базу данных Sql", "", MainWindow::fileDialogFilterString);
-    data.connectToDatabase(dbFileFullPath);
+    dbFileFullPath = QFileDialog::getOpenFileName(this, "Открыть базу данных Sql", "", MainWindow::fileDialogFilterString);
+    if(!dbFileFullPath.isEmpty())
+        data.connectToDatabase(dbFileFullPath);
+    else return;
+    this->hide();
+    ui_Auth.show();
 }
 
+void MainWindow::initApp(const QString &dbFileFullPath)
+{
+    delete manager;
+    manager = new ManagerTabWidget;
+    ui->gridLayout->addWidget(manager);
+    manager->initManagerWithDB(dbFileFullPath);
+    this->show();
+}
