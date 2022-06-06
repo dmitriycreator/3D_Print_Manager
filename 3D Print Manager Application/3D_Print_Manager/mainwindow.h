@@ -7,6 +7,7 @@
 #include "Auth_Form/authform.h"
 #include "Reg_Form/regform.h"
 #include "Database/database.h"
+#include "Manager/managertabwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,11 +38,15 @@ private:
 
     static const QString fileDialogFilterString; // варианты формата баз данных для диалога
 
+    void initApp(const QString &dbFileFullPath);
+
     AuthForm ui_Auth; // окно авторизации
     RegForm ui_Reg; // окно регистрации
+    ManagerTabWidget *manager; // указатель на виджет менеджера
 
     QString m_username; // строки обработки
     QString m_userpass; // пользовательского ввода
+    QString dbFileFullPath; // полный путь к базе данных
 
     QString role; // роль пользователя
 

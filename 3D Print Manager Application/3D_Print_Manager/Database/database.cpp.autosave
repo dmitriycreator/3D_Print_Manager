@@ -69,10 +69,23 @@ void Database::connectToDatabase(const QString &dbName)
    else qDebug() << "Table 'params' exists";
 }
 
+// Метод подключение или создания базы данных пользователей
+void Database::connectToUsersDB()
+{
+    mw_db = QSqlDatabase::addDatabase("QSQLITE"); // соединение объекта БД с СУБД
+    mw_db.setDatabaseName(USERSDB); // определение имени БД
+    if(!mw_db.open()) // проверка на ошибку при открытии БД
+    {
+        qDebug() << "Unable to open DB: " << mw_db.lastError();
+        throw "Unable to open DB!";
+    }
+    query = new QSqlQuery(mw_db); // создание объекта для запроса
+}
+
 //------------------------------Методы_ORDERS------------------------------//
 
 // Метод создания нового заказа в базе данных
-QList<QString> Database::createNewOrder(const QString &ordername)
+QString Database::createNewOrder(const QString &ordername)
 {
     query->clear();
     query->prepare("SELECT MAX(e.id) AS 'number_of_orders' FROM orders AS 'e'");
@@ -108,32 +121,10 @@ QList<QString> Database::createNewOrder(const QString &ordername)
                         " done BOOL,                       /* сделана */"
                         " primaryrate DOUBLE               /* коэф_надбавки */"
                         ");").arg(id));
-
-    QList<QString> params;
-    params.append(id);
-    params.append(ordername);
-    params.append(date);
-
-    return params;
+    return id;
 }
 
-// Метод получения параметров заказа из БД
-QList<QString> Database::getOrderParams(const QString &orderid)
-{
-    query->clear();
-    query->prepare(QString("SELECT * FROM orders WHERE id = :id"));
-    query->bindValue(":id", orderid);
-    query->exec();
-
-    rec = query->record();
-    query->next();
-
-    QList<QString> params;
-    params.append(query->value(rec.indexOf("id")).toString());
-    params.append(query->value(rec.indexOf("name")).toString());
-    params.append(query->value(rec.indexOf("date")).toString());
-    return params;
-}
+QList<
 
 //------------------------------Методы_USERS------------------------------//
 

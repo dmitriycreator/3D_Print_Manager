@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -27,9 +28,11 @@ public:
     QAction *action_openDB;
     QAction *action_Help;
     QWidget *centralwidget;
+    QGridLayout *gridLayout_2;
+    QGridLayout *gridLayout;
     QMenuBar *menubar;
-    QMenu *menu;
-    QMenu *menu_2;
+    QMenu *menu_DB;
+    QMenu *menu_Help;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -45,24 +48,31 @@ public:
         action_Help->setObjectName(QString::fromUtf8("action_Help"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        gridLayout_2 = new QGridLayout(centralwidget);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout = new QGridLayout();
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+
+        gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 800, 25));
-        menu = new QMenu(menubar);
-        menu->setObjectName(QString::fromUtf8("menu"));
-        menu_2 = new QMenu(menubar);
-        menu_2->setObjectName(QString::fromUtf8("menu_2"));
+        menu_DB = new QMenu(menubar);
+        menu_DB->setObjectName(QString::fromUtf8("menu_DB"));
+        menu_Help = new QMenu(menubar);
+        menu_Help->setObjectName(QString::fromUtf8("menu_Help"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
 
-        menubar->addAction(menu->menuAction());
-        menubar->addAction(menu_2->menuAction());
-        menu->addAction(action_createDB);
-        menu->addAction(action_openDB);
-        menu_2->addAction(action_Help);
+        menubar->addAction(menu_DB->menuAction());
+        menubar->addAction(menu_Help->menuAction());
+        menu_DB->addAction(action_createDB);
+        menu_DB->addAction(action_openDB);
+        menu_Help->addAction(action_Help);
 
         retranslateUi(MainWindow);
 
@@ -75,8 +85,8 @@ public:
         action_createDB->setText(QCoreApplication::translate("MainWindow", "\320\241\320\276\320\267\320\264\320\260\321\202\321\214 \320\275\320\276\320\262\321\203\321\216 \320\261\320\260\320\267\321\203 \320\264\320\260\320\275\320\275\321\213\321\205...", nullptr));
         action_openDB->setText(QCoreApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214 \321\201\321\203\321\211\320\265\321\201\321\202\320\262\321\203\321\216\321\211\321\203\321\216 \320\261\320\260\320\267\321\203 \320\264\320\260\320\275\320\275\321\213\321\205...", nullptr));
         action_Help->setText(QCoreApplication::translate("MainWindow", "\320\236 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\265...", nullptr));
-        menu->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\260\320\271\320\273", nullptr));
-        menu_2->setTitle(QCoreApplication::translate("MainWindow", "\320\237\320\276\320\274\320\276\321\211\321\214", nullptr));
+        menu_DB->setTitle(QCoreApplication::translate("MainWindow", "\320\244\320\260\320\271\320\273", nullptr));
+        menu_Help->setTitle(QCoreApplication::translate("MainWindow", "\320\237\320\276\320\274\320\276\321\211\321\214", nullptr));
     } // retranslateUi
 
 };
