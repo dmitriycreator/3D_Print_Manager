@@ -25,6 +25,12 @@ private slots:
     void openOrder(); // метод открытия заказа
 
     void closeOrder(); // метод закрытия вкладки с заказом
+    void addPrint(); // метод добавления новой печати
+    void deletePrint(); // метод удаления печати
+
+    void findCost(); // метод расчета стоимости заказа
+    void finishOrder(); // метод завершения заказа
+    void deleteOrder(); // метод удаления заказа
 
 private:
     Ui::ManagerTabWidget *ui;

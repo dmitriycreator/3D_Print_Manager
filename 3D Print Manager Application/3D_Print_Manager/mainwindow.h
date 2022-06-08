@@ -29,16 +29,17 @@ private slots:
     void registerFormShow(); // метод открытия окна регистрации
     void returnToAuthForm(); // метод возвращения к окну авторизации
 
-    void on_action_createDB_triggered();
+    void on_action_createDB_triggered(); // слот создания БД
 
-    void on_action_openDB_triggered();
+    void on_action_openDB_triggered(); // слот открытия БД
 
 private:
     Ui::MainWindow *ui;
 
     static const QString fileDialogFilterString; // варианты формата баз данных для диалога
 
-    void initApp(const QString &dbFileFullPath);
+    // Метод инициализации пользовательского интерфейса
+    void initApp(const QString &dbFileFullPath); // передается путь к БД
 
     AuthForm ui_Auth; // окно авторизации
     RegForm ui_Reg; // окно регистрации

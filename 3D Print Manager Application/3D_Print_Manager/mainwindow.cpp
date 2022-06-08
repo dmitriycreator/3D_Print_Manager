@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+// Варианты формата баз данных для диалога
 const QString MainWindow::fileDialogFilterString = tr("SQLite Database Files (*.sqlite3 *.sqlite *.db *.db3 *.sl3 *.s3db *.sdb *.sqlite2 *.db2 *.sl2 *.s2db)");
 
 MainWindow::MainWindow(QWidget *parent)
@@ -8,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     m_loginSuccesfull = false;
+    // Связи
     connect(&ui_Auth, SIGNAL(login_button_clicked()),
             this, SLOT(authoriseUser()));
     connect(&ui_Auth, SIGNAL(destroyed()),
@@ -75,10 +77,10 @@ void MainWindow::authoriseUser()
     QList<QString> params = data.getUserParams(m_username);
     role = params[2];
     QString hi = "Добро пожаловать, %1";
-    QMessageBox::information(this, "Здравствуйте", hi.arg(m_username));
+    QMessageBox::information(this, "Здравствуйте", hi.arg(m_username)); // приветствие
     ui_Auth.close();
     ui_Reg.close();
-    initApp(dbFileFullPath);
+    initApp(dbFileFullPath); // инициализируем пользовательский интерфейс
     // Флаг успешной авторизации
     m_loginSuccesfull = true;
 }
@@ -131,10 +133,11 @@ void MainWindow::registerUser()
 void MainWindow::on_action_createDB_triggered()
 {
     dbFileFullPath = QFileDialog::getSaveFileName(this, "Создать базу данных Sql", "", MainWindow::fileDialogFilterString);
+    // Проверка на пустой путь
     if(!dbFileFullPath.isEmpty())
-        data.connectToDatabase(dbFileFullPath);
+        data.connectToDatabase(dbFileFullPath); // подключаемся к БД для регистрации
     else return;
-    this->hide();
+    this->hide(); // вызываем авторизацию
     ui_Auth.show();
 }
 
@@ -142,18 +145,20 @@ void MainWindow::on_action_createDB_triggered()
 void MainWindow::on_action_openDB_triggered()
 {
     dbFileFullPath = QFileDialog::getOpenFileName(this, "Открыть базу данных Sql", "", MainWindow::fileDialogFilterString);
+    // Проверка на пустой путь
     if(!dbFileFullPath.isEmpty())
-        data.connectToDatabase(dbFileFullPath);
+        data.connectToDatabase(dbFileFullPath); // подключаемся к БД для регистрации
     else return;
-    this->hide();
+    this->hide(); // вызываем авторизацию
     ui_Auth.show();
 }
 
+// Метод инициализации пользовательского интерфейса
 void MainWindow::initApp(const QString &dbFileFullPath)
 {
-    delete manager;
+    delete manager; // удаляем объект менеджера чтобы в главном окне не было виджета
     manager = new ManagerTabWidget;
     ui->gridLayout->addWidget(manager);
-    manager->initManagerWithDB(dbFileFullPath);
+    manager->initManagerWithDB(dbFileFullPath); // инициализируем виджет менеджера с БД
     this->show();
 }

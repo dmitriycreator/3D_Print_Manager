@@ -16,8 +16,9 @@ public:
     explicit OrdersForm(QWidget *parent = nullptr);
     ~OrdersForm();
     void createOrdersModel(const QSqlDatabase &db); // метод создания модели таблицы заказов
-    QString getID();
-    QString getName();
+    QString getID(); // метод получения id заказа
+    QString getName(); // метод получения имени заказа
+    void refresh(); // обновление таблицы
 
 signals:
     void tabcreateNewOrder(); // нажатие кнопки создать заказ

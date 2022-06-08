@@ -59,15 +59,15 @@ public:
     QPushButton *pushButton_deletePrint;
     QGroupBox *groupBox_2;
     QHBoxLayout *horizontalLayout;
-    QPushButton *pushButton;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_2;
+    QPushButton *pushButton_findCost;
+    QPushButton *pushButton_finish;
+    QPushButton *pushButton_deleteOrder;
 
     void setupUi(QWidget *OrderForm)
     {
         if (OrderForm->objectName().isEmpty())
             OrderForm->setObjectName(QString::fromUtf8("OrderForm"));
-        OrderForm->resize(747, 991);
+        OrderForm->resize(872, 991);
         gridLayout_3 = new QGridLayout(OrderForm);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         toolButton_close = new QToolButton(OrderForm);
@@ -100,6 +100,9 @@ public:
         gridLayout->addWidget(label_addAmount, 0, 3, 1, 1);
 
         comboBox_Plastic = new QComboBox(groupBox_Add);
+        comboBox_Plastic->addItem(QString());
+        comboBox_Plastic->addItem(QString());
+        comboBox_Plastic->addItem(QString());
         comboBox_Plastic->setObjectName(QString::fromUtf8("comboBox_Plastic"));
 
         gridLayout->addWidget(comboBox_Plastic, 1, 1, 1, 1);
@@ -193,20 +196,20 @@ public:
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         horizontalLayout = new QHBoxLayout(groupBox_2);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        pushButton = new QPushButton(groupBox_2);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton_findCost = new QPushButton(groupBox_2);
+        pushButton_findCost->setObjectName(QString::fromUtf8("pushButton_findCost"));
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout->addWidget(pushButton_findCost);
 
-        pushButton_3 = new QPushButton(groupBox_2);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        pushButton_finish = new QPushButton(groupBox_2);
+        pushButton_finish->setObjectName(QString::fromUtf8("pushButton_finish"));
 
-        horizontalLayout->addWidget(pushButton_3);
+        horizontalLayout->addWidget(pushButton_finish);
 
-        pushButton_2 = new QPushButton(groupBox_2);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_deleteOrder = new QPushButton(groupBox_2);
+        pushButton_deleteOrder->setObjectName(QString::fromUtf8("pushButton_deleteOrder"));
 
-        horizontalLayout->addWidget(pushButton_2);
+        horizontalLayout->addWidget(pushButton_deleteOrder);
 
 
         gridLayout_3->addWidget(groupBox_2, 4, 0, 1, 2);
@@ -224,6 +227,10 @@ public:
         label_Order->setText(QString());
         groupBox_Add->setTitle(QCoreApplication::translate("OrderForm", "\320\224\320\276\320\261\320\260\320\262\320\273\320\265\320\275\320\270\320\265 \320\277\320\265\321\207\320\260\321\202\320\270", nullptr));
         label_addAmount->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\232\320\276\320\273-\320\262\320\276 :</p></body></html>", nullptr));
+        comboBox_Plastic->setItemText(0, QCoreApplication::translate("OrderForm", "PLA", nullptr));
+        comboBox_Plastic->setItemText(1, QCoreApplication::translate("OrderForm", "MDA", nullptr));
+        comboBox_Plastic->setItemText(2, QCoreApplication::translate("OrderForm", "STA", nullptr));
+
         label_addName->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\230\320\274\321\217 :</p></body></html>", nullptr));
         label_Plastic->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\237\320\273\320\260\321\201\321\202\320\270\320\272 :</p></body></html>", nullptr));
         label_Weight->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\222\320\265\321\201 :</p></body></html>", nullptr));
@@ -236,9 +243,9 @@ public:
         label_ID->setText(QCoreApplication::translate("OrderForm", "Id :", nullptr));
         pushButton_deletePrint->setText(QCoreApplication::translate("OrderForm", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214 \320\277\320\265\321\207\320\260\321\202\321\214", nullptr));
         groupBox_2->setTitle(QCoreApplication::translate("OrderForm", "\320\227\320\260\320\272\320\260\320\267", nullptr));
-        pushButton->setText(QCoreApplication::translate("OrderForm", "\320\240\320\260\321\201\321\201\321\207\320\270\321\202\320\260\321\202\321\214 \321\201\321\202\320\276\320\270\320\274\320\276\321\201\321\202\321\214", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("OrderForm", "\320\227\320\260\320\262\320\265\321\200\321\210\320\270\321\202\321\214 \320\262\321\213\320\277\320\276\320\273\320\275\320\265\320\275\320\270\320\265", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("OrderForm", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
+        pushButton_findCost->setText(QCoreApplication::translate("OrderForm", "\320\240\320\260\321\201\321\201\321\207\320\270\321\202\320\260\321\202\321\214 \321\201\321\202\320\276\320\270\320\274\320\276\321\201\321\202\321\214", nullptr));
+        pushButton_finish->setText(QCoreApplication::translate("OrderForm", "\320\227\320\260\320\262\320\265\321\200\321\210\320\270\321\202\321\214 \320\262\321\213\320\277\320\276\320\273\320\275\320\265\320\275\320\270\320\265", nullptr));
+        pushButton_deleteOrder->setText(QCoreApplication::translate("OrderForm", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
     } // retranslateUi
 
 };
