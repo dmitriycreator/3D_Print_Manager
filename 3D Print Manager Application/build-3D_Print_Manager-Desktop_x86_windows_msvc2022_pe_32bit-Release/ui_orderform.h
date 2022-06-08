@@ -100,9 +100,6 @@ public:
         gridLayout->addWidget(label_addAmount, 0, 3, 1, 1);
 
         comboBox_Plastic = new QComboBox(groupBox_Add);
-        comboBox_Plastic->addItem(QString());
-        comboBox_Plastic->addItem(QString());
-        comboBox_Plastic->addItem(QString());
         comboBox_Plastic->setObjectName(QString::fromUtf8("comboBox_Plastic"));
 
         gridLayout->addWidget(comboBox_Plastic, 1, 1, 1, 1);
@@ -227,13 +224,9 @@ public:
         label_Order->setText(QString());
         groupBox_Add->setTitle(QCoreApplication::translate("OrderForm", "\320\224\320\276\320\261\320\260\320\262\320\273\320\265\320\275\320\270\320\265 \320\277\320\265\321\207\320\260\321\202\320\270", nullptr));
         label_addAmount->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\232\320\276\320\273-\320\262\320\276 :</p></body></html>", nullptr));
-        comboBox_Plastic->setItemText(0, QCoreApplication::translate("OrderForm", "PLA", nullptr));
-        comboBox_Plastic->setItemText(1, QCoreApplication::translate("OrderForm", "MDA", nullptr));
-        comboBox_Plastic->setItemText(2, QCoreApplication::translate("OrderForm", "STA", nullptr));
-
         label_addName->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\230\320\274\321\217 :</p></body></html>", nullptr));
         label_Plastic->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\237\320\273\320\260\321\201\321\202\320\270\320\272 :</p></body></html>", nullptr));
-        label_Weight->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\222\320\265\321\201 :</p></body></html>", nullptr));
+        label_Weight->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\222\320\265\321\201, \320\272\320\263 :</p></body></html>", nullptr));
         pushButton_addPrint->setText(QCoreApplication::translate("OrderForm", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214 \320\277\320\265\321\207\320\260\321\202\321\214", nullptr));
         label_Time->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\222\321\200\320\265\320\274\321\217 \320\277\320\265\321\207\320\260\321\202\320\270, \321\207 :</p></body></html>", nullptr));
         label_PR->setText(QCoreApplication::translate("OrderForm", "<html><head/><body><p align=\"right\">\320\232\320\276\321\215\321\204\321\204\320\270\321\206\320\270\320\265\320\275\321\202 \320\275\320\260\320\264\320\261\320\260\320\262\320\276\321\207\320\275\320\276\320\271 \321\201\321\202\320\276\320\270\320\274\320\276\321\201\321\202\320\270 :</p></body></html>", nullptr));

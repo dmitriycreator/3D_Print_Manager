@@ -88,7 +88,6 @@ void ManagerTabWidget::deletePrint()
     QString printid = form->getPrintId(); // получаем id печати
     qDebug() << "deleting Print accepted order " << orderid << " print " << printid;
     db_manager.deletePrint(orderid, printid); // запрос в БД
-
 }
 
 // Метод расчета стоимости заказа
@@ -120,7 +119,8 @@ void ManagerTabWidget::createOrderTab(const QList<QString> &params)
     // Добавляем вкладку
     this->addTab(ui_Order, QString("Заказ id %1").arg(params[0]));
     ui_Order->createOrderModel(db_manager.mw_db, params[0]); // создаем модель таблицы
-    ui_Order->setlabel(params);
+    ui_Order->setlabel(params); // делаем заголовок
+    ui_Order->connectComboBox(db_manager.getPlasticNames()); // устанавливаем пластики в комбобокс
 }
 
 // Метод закрытия вкладки с заказом
@@ -153,4 +153,39 @@ void ManagerTabWidget::deleteOrder()
     delete (OrderForm*) sender();
     db_manager.deleteOrder(orderid);
     ui_Orders->refresh();
+}
+
+// МЕТОДЫ ДЛЯ АДМИНА
+bool ManagerTabWidget::addUser(const QList<QString> params)
+{
+    if(db_manager.searchUser(params[0]))
+    {
+        return false;
+    }
+    db_manager.addUser(params);
+    return true;
+}
+
+void ManagerTabWidget::deleteUser(const QString username)
+{
+    db_manager.deleteUser(username);
+}
+
+void ManagerTabWidget::findAllIncome()
+{
+    double allIncome = db_manager.findAllIncome();
+    QMessageBox::information(this, "Общий доход", QString("Общий доход равен: %1").arg(allIncome));
+}
+
+bool ManagerTabWidget::addPlastic(const QString &name, const QString &cost)
+{
+    if(db_manager.findPlastic(name))
+        return false;
+    db_manager.addPlastic(name, cost.toDouble());
+    return true;
+}
+
+void ManagerTabWidget::delPlastic(const QString &name)
+{
+    db_manager.deletePlastic(name);
 }

@@ -48,23 +48,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox_Plastic">
-        <item>
-         <property name="text">
-          <string>PLA</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>MDA</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>STA</string>
-         </property>
-        </item>
-       </widget>
+       <widget class="QComboBox" name="comboBox_Plastic"/>
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label_addName">
@@ -86,7 +70,7 @@
       <item row="1" column="3">
        <widget class="QLabel" name="label_Weight">
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Вес :&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Вес, кг :&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>

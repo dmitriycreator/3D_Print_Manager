@@ -10,6 +10,7 @@ OrdersForm::OrdersForm(QWidget *parent) :
 
 OrdersForm::~OrdersForm()
 {
+    delete model;
     delete ui;
 }
 

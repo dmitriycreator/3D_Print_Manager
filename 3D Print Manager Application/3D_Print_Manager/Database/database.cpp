@@ -82,7 +82,7 @@ void Database::connectToDatabase(const QString &dbName)
    }
    else qDebug() << "Table 'income' exists";
 
-   initTestPrintParams();
+   //initTestPrintParams();
 }
 
 //------------------------------Методы_ORDERS------------------------------//
@@ -222,7 +222,7 @@ double Database::findCost(const QString &orderid)
             weight = query->value(1).toDouble();
             primary_rate = query->value(4).toDouble();
             qDebug() << plastic_cost << " * " << weight << " * " << primary_rate << " * " << amount;
-            cost += amount * weight * plastic_cost * primary_rate; // добавляем стоимость детали к стоимости заказа
+            cost += amount * weight * plastic_cost * primary_rate * KG; // добавляем стоимость детали к стоимости заказа
         }
     }
 
@@ -257,8 +257,8 @@ double Database::findIncome(const QString &orderid)
             primary_rate = query->value(5).toDouble();
             qDebug() << plastic_cost << " * " << weight << " * " << primary_rate << " * " << amount;
             if(query->value(3).toString() == "да")
-                income -= amount * weight * plastic_cost; // удаляем стоимость брака из дохода
-            else income += amount * weight * plastic_cost * primary_rate; // добавляем стоимость детали к доходу
+                income -= amount * weight * plastic_cost * KG; // удаляем стоимость брака из дохода
+            else income += amount * weight * plastic_cost * primary_rate * KG; // добавляем стоимость детали к доходу
         }
     }
 
@@ -292,7 +292,7 @@ double Database::findConsumtion(const QString &orderid)
             amount = query->value(0).toInt();
             weight = query->value(1).toDouble();
             qDebug() << plastic_cost << " * " << weight << " * " << " * " << amount;
-            consumption -= amount * weight * plastic_cost; // удаляем стоимость брака из дохода
+            consumption -= amount * weight * plastic_cost * KG; // удаляем стоимость брака из дохода
         }
     }
 
@@ -325,6 +325,18 @@ void Database::deleteOrder(const QString &orderid)
     query->clear();
     qDebug() << "Finishing order " << orderid <<
     query->exec(QString("DROP table '%1'").arg(orderid)); // удаляем таблицу
+}
+
+double Database::findAllIncome()
+{
+    double allIncome = 0;
+    query->clear();
+    qDebug() << "opening income ";
+    query->exec("SELECT income FROM income");
+
+    while(query->next())
+        allIncome += query->value(0).toDouble();
+    return allIncome;
 }
 
 //------------------------------Методы_PARAMS------------------------------//
@@ -370,6 +382,21 @@ void Database::deletePlastic(const QString &plastic)
     query->exec(QString("DELETE FROM params WHERE plastic = '%1';").arg(plastic));
 }
 
+bool Database::findPlastic(const QString &plastic)
+{
+    query->clear();
+
+    qDebug() << "bool params " <<
+    query->prepare("SELECT * FROM params WHERE plastic = :name");
+    query->bindValue(":name", plastic);
+    query->exec();
+
+    rec = query->record();
+    query->next();
+    QString m_plastic = query->value(rec.indexOf("plastic")).toString();
+    return (plastic == m_plastic);
+}
+
 // Метод получения списка пластиков
 QMap<QString, double> Database::getPlastics()
 {
@@ -386,6 +413,20 @@ QMap<QString, double> Database::getPlastics()
     }
 
     return plastics;
+}
+
+//  Метод получения списка имен пластиков
+QList<QString> Database::getPlasticNames()
+{
+    QList<QString> plastics_names;
+    query->clear();
+
+    qDebug() << "trying to get plastics names: " <<
+    query->exec("SELECT plastic FROM params");
+
+    while(query->next())
+        plastics_names.append(query->value(0).toString());
+    return plastics_names;
 }
 
 // Метод создания тестовых параметров печати
@@ -439,6 +480,7 @@ void Database::deleteUser(const QString &username)
 bool Database::searchUser(const QString &username)
 {
     query->clear();
+    qDebug() << "searchUser " <<
     query->prepare("SELECT * FROM users WHERE login = :login");
     query->bindValue(":login", username);
     query->exec();
@@ -453,6 +495,7 @@ bool Database::searchUser(const QString &username)
 bool Database::checkLogData(const QString &username, const QString &userpass)
 {
     query->clear();
+    qDebug() << "checkLogData " <<
     query->prepare("SELECT * FROM users WHERE login = :login");
     query->bindValue(":login", username);
     query->exec();
@@ -469,6 +512,7 @@ bool Database::checkLogData(const QString &username, const QString &userpass)
 QList<QString> Database::getUserParams(const QString &username)
 {
     query->clear();
+    qDebug() << "getUserParams " <<
     query->prepare("SELECT * FROM users WHERE login = :login");
     query->bindValue(":login", username);
     query->exec();

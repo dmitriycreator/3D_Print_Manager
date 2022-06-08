@@ -2,6 +2,7 @@
 #define DATABASE_H
 
 #define USERSDB "Users.db"
+#define KG 1000
 
 #include <QtSql/QtSql>
 #include <QList>
@@ -40,13 +41,17 @@ public:
     double findConsumtion(const QString &orderid);
     void deleteOrder(const QString &orderid); // метод удаления таблицы заказа из БД
 
+    double findAllIncome();
+
     // Метод добавления дохода в таблицу
     void addIncome(const QString &orderid, const double &income);
 
     // Методы работы с параметрами печати
     void addPlastic(const QString &plastic, const double &cost); // метод добавления нового пластика
     void deletePlastic(const QString &plastic); // метод удаления пластика
+    bool findPlastic(const QString &plastic); // метод поиска пластика по имени
     QMap<QString, double> getPlastics(); // метод получения списка пластиков
+    QList<QString> getPlasticNames(); // метод получения списка названий пластиков
     void initTestPrintParams(); // установить тестовые параметры печати
 
     QSqlDatabase mw_db; // объект базы данных

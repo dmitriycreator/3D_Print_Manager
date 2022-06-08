@@ -19,6 +19,13 @@ public:
     explicit ManagerTabWidget(QWidget *parent = nullptr);
     ~ManagerTabWidget();
     void initManagerWithDB(const QString &DBFilePath); // метод инициализации виджета менеджера базой данных
+    // Методы для админа
+    bool addUser(const QList<QString> params);
+    void deleteUser(const QString username);
+    void findAllIncome();
+    bool addPlastic(const QString &name, const QString &cost);
+    void delPlastic(const QString &name);
+    Database db_manager; // объект базы данных
 
 private slots:
     void createNewOrder(); // метод создания нового заказа
@@ -38,8 +45,6 @@ private:
 
     OrdersForm *ui_Orders; // форма списка заказов
     OrderForm *ui_Order; // формы заказов
-
-    Database db_manager; // объект базы данных
 };
 
 #endif // MANAGERTABWIDGET_H

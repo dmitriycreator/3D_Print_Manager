@@ -10,6 +10,7 @@ OrderForm::OrderForm(QWidget *parent) :
 
 OrderForm::~OrderForm()
 {
+    delete model;
     delete ui;
 }
 
@@ -39,6 +40,14 @@ void OrderForm::createOrderModel(const QSqlDatabase &db, const QString &orderid)
     model->setHeaderData(8, Qt::Horizontal, "Коэф. надбавки");
 
     setCheckBoxes(); // делаем чекбоксы
+}
+
+void OrderForm::connectComboBox(const QList<QString> &items)
+{
+    int count = ui->comboBox_Plastic->count();
+    for(int i = 0; i < count; i++)
+        ui->comboBox_Plastic->removeItem(i);
+    ui->comboBox_Plastic->addItems(items);
 }
 
 // Метод установления чекбоксов в таблицу

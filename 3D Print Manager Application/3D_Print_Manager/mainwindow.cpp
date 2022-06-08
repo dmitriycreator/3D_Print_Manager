@@ -23,12 +23,15 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&ui_Reg,SIGNAL(back_button_clicked()),
             this, SLOT(returnToAuthForm()));
 
+    //manager = new ManagerTabWidget;
+    //admin = new AdminForm;
     ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
     qDebug() << "MainWindow destroyed";
+    delete admin;
     delete manager;
     delete ui;
 }
@@ -82,7 +85,7 @@ void MainWindow::authoriseUser()
     ui_Reg.close();
     initApp(dbFileFullPath); // инициализируем пользовательский интерфейс
     // Флаг успешной авторизации
-    m_loginSuccesfull = true;
+    //m_loginSuccesfull = true;
 }
 
 // Метод регистрации пользователя
@@ -116,7 +119,7 @@ void MainWindow::registerUser()
             QList<QString> params = {
               m_username,
               m_userpass,
-              "manager"
+              role
             };
             data.addUser(params); // добавление пользователя в БД
             ui_Reg.hide(); // скрываем форму регистрации
@@ -137,6 +140,22 @@ void MainWindow::on_action_createDB_triggered()
     if(!dbFileFullPath.isEmpty())
         data.connectToDatabase(dbFileFullPath); // подключаемся к БД для регистрации
     else return;
+    /*qDebug() << "current role " << role;
+    if(m_loginSuccesfull)
+    {
+        if(role == "manager")
+        {
+            ui->gridLayout->removeWidget(manager);
+            delete manager;
+        }
+        else
+        {
+            ui->gridLayout->removeWidget(admin);
+            delete admin;
+        }
+    }*/
+
+    role = "admin";
     this->hide(); // вызываем авторизацию
     ui_Auth.show();
 }
@@ -149,6 +168,22 @@ void MainWindow::on_action_openDB_triggered()
     if(!dbFileFullPath.isEmpty())
         data.connectToDatabase(dbFileFullPath); // подключаемся к БД для регистрации
     else return;
+    /*qDebug() << "current role" << role;
+    if(m_loginSuccesfull)
+    {
+        if(role == "manager")
+        {
+            ui->gridLayout->removeWidget(manager);
+            delete manager;
+        }
+        else
+        {
+            ui->gridLayout->removeWidget(admin);
+            delete admin;
+        }
+    }*/
+
+    role = "manager";
     this->hide(); // вызываем авторизацию
     ui_Auth.show();
 }
@@ -156,9 +191,38 @@ void MainWindow::on_action_openDB_triggered()
 // Метод инициализации пользовательского интерфейса
 void MainWindow::initApp(const QString &dbFileFullPath)
 {
-    delete manager; // удаляем объект менеджера чтобы в главном окне не было виджета
-    manager = new ManagerTabWidget;
-    ui->gridLayout->addWidget(manager);
-    manager->initManagerWithDB(dbFileFullPath); // инициализируем виджет менеджера с БД
+    /*if(role == "manager")
+    {
+        manager = new ManagerTabWidget;
+        ui->gridLayout->addWidget(manager);
+        manager->initManagerWithDB(dbFileFullPath); // инициализируем виджет менеджера с БД
+    }
+    else //if (role == "admin")
+    {
+        admin = new AdminForm;
+        ui->gridLayout->addWidget(admin);
+        admin->initwithDB(dbFileFullPath);
+    }*/
+    if(m_loginSuccesfull)
+    {
+        //ui->gridLayout->removeWidget(ui->gridLayout->itemAt(0)->widget());
+        ui->gridLayout->itemAt(0)->widget()->hide();
+        ui->gridLayout->removeItem(ui->gridLayout->itemAt(0));
+        ui->gridLayout->update();
+
+    }
+    if(role == "manager")
+    {
+        manager = new ManagerTabWidget;
+        manager->initManagerWithDB(dbFileFullPath);
+        ui->gridLayout->addWidget(manager);
+    }
+    else
+    {
+        admin = new AdminForm;
+        admin->initwithDB(dbFileFullPath);
+        ui->gridLayout->addWidget(admin);
+    }
     this->show();
+    m_loginSuccesfull = true;
 }

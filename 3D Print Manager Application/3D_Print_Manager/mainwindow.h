@@ -8,6 +8,7 @@
 #include "Reg_Form/regform.h"
 #include "Database/database.h"
 #include "Manager/managertabwidget.h"
+#include "Admin/adminform.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -44,12 +45,14 @@ private:
     AuthForm ui_Auth; // окно авторизации
     RegForm ui_Reg; // окно регистрации
     ManagerTabWidget *manager; // указатель на виджет менеджера
+    AdminForm *admin; // указатель на виджет админа
 
     QString m_username; // строки обработки
     QString m_userpass; // пользовательского ввода
     QString dbFileFullPath; // полный путь к базе данных
 
     QString role; // роль пользователя
+    QString getRole; // полученная роль пользователя
 
     Database data; // объект БД
 

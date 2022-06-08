@@ -20,6 +20,8 @@ public:
     void createOrderModel(const QSqlDatabase &db, const QString &orderid); // метод создания модели таблицы заказов
     void setlabel(QList<QString> params); // метод установления пояснительной надписи заказа
 
+    void connectComboBox(const QList<QString> &items);
+
     QString getID(); // метод получения id заказа
     QList<QString> getPrintParams(); // метод получения параметров печати из формы
     QString getPrintId(); // метод получения id печати на удаление
