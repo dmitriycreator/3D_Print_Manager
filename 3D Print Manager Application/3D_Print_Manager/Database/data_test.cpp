@@ -1,5 +1,6 @@
 #include "database.h"
 
+// Тест для проверки работы БД
 void data_test()
 {
     try {
@@ -20,6 +21,13 @@ void data_test()
         data.createNewOrder("test0");
         data.createNewOrder("test1");
         data.createNewOrder("test2");
+        data.addPrint("1", {"name", "1", "2,2", "2,2", "PLA", "1", "1", "2,2"});
+        data.deletePrint("1", "1");
+        data.addPlastic("PLA", 2.2);
+        data.addPlastic("LPA", 3.3);
+        QMap<QString, double> plastics = data.getPlastics();
+        qDebug() << "Plastics: " << plastics;
+        data.deletePlastic("PLA");
     }  catch (const QSqlError &e) {
         qDebug() << e;
     }

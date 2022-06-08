@@ -26,6 +26,7 @@ void OrdersForm::createOrdersModel(const QSqlDatabase &db)
 
     ui->tableView_Orders->setModel(model); // соединение модели с таблицей
 
+    // Устанавливаем заголовки
     model->setHeaderData(0, Qt::Horizontal, "Id");
     model->setHeaderData(1, Qt::Horizontal, "Имя");
     model->setHeaderData(2, Qt::Horizontal, "Дата");
@@ -55,12 +56,17 @@ void OrdersForm::on_lineEdit_Create_textEdited(const QString &arg1)
     ordername = arg1;
 }
 
-QString OrdersForm::getID()
+QString OrdersForm::getID() // метод получения id заказа
 {
     return orderid;
 }
 
-QString OrdersForm::getName()
+QString OrdersForm::getName() // метод получения имени заказа
 {
     return ordername;
+}
+
+void OrdersForm::refresh() // метод обновления таблицы
+{
+    model->select();
 }

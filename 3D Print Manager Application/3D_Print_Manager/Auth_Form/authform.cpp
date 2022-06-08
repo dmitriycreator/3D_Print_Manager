@@ -27,20 +27,22 @@ void AuthForm::on_lineEdit_Pass_textEdited(const QString &arg1)
 
 void AuthForm::on_pushButton_Log_clicked()
 {
-    emit login_button_clicked();
+    emit login_button_clicked(); // сигнал нажатия кнопки Вход
 }
 
 
 void AuthForm::on_pushButton_Reg_clicked()
 {
-    emit register_button_clicked();
+    emit register_button_clicked(); // сигнал нажатия кнопки Регистрация
 }
 
+// Метод получения логина
 QString AuthForm::getLogin()
 {
     return username;
 }
 
+// Метод получения пароля
 QString AuthForm::getPass()
 {
     return userpass;
