@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Help</class>
+ <widget class="QWidget" name="Help">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>452</width>
+    <height>482</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1431</width>
+        <height>522</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_Help">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;НАЧАЛО РАБОТЫ&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;-Для начала работы с программным средством откройте или создайте базу данных в меню «Файл». После чего войдите в учетную запись или создайте ее&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;МЕНЕДЖЕР&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;-Во вкладке заказы можно открыть заказ, вписав id в строку поиска заказа или создать заказ, придумав ему имя. Имя может быть любым на выбор.&lt;/p&gt;&lt;p&gt;-Чтобы закрыть вкладку с заказом, нажмите крестик находясь во вкладке заказа в левом верхнем углу&lt;/p&gt;&lt;p&gt;-Если в выпадающем списке пластиков ничего нет, обратитесь к администратору для заполнения параметров печати&lt;/p&gt;&lt;p&gt;-Если печать отмечена как сделана, то при завершении заказа, если она не бракована, она будет посчитана в прибыль, при удалении заказа она будет посчитана в убытки без коэффициента надбавки&lt;/p&gt;&lt;p&gt;-Если печать отмечена как брак, при завершении заказа, если она сделана будут посчитаны ее убытки без коэффициента надбавки&lt;/p&gt;&lt;p&gt;Все таблицы можно изменять&lt;/p&gt;&lt;p&gt;АДМИНИСТРАТОР&lt;/p&gt;&lt;p&gt;-Во вкладке заказы можно открыть заказ, вписав id в строку поиска заказа или создать заказ, придумав ему имя. Имя может быть любым на выбор.&lt;/p&gt;&lt;p&gt;-Чтобы закрыть вкладку с заказом, нажмите крестик находясь во вкладке заказа в левом верхнем углу&lt;/p&gt;&lt;p&gt;-Если в выпадающем списке пластиков ничего нет, добавьте пластики в параметрах печати, а затем закройте все заказы и откройте их заново&lt;/p&gt;&lt;p&gt;-Если печать отмечена как сделана, то при завершении заказа, если она не бракована, она будет посчитана в прибыль, при удалении заказа она будет посчитана в убытки без коэффициента надбавки&lt;/p&gt;&lt;p&gt;-Если печать отмечена как брак, при завершении заказа, если она сделана будут посчитаны ее убытки без коэффициента надбавки&lt;/p&gt;&lt;p&gt;Все таблицы можно изменять&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
